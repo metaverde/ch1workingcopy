@@ -33,8 +33,8 @@ contract Staker {
     _;
   }
 
-  modifier notCompleted() {
-    require(!exampleExternalContract.completed(), "Staking not completed!");
+  modifier soCompleted() {
+    require(!exampleExternalContract.completed(), "Not completed!");
     _;
   }
 
@@ -59,7 +59,7 @@ contract Staker {
   
   // if the `threshold` was not met, allow everyone to call a `withdraw()` function
   // Add a `withdraw(address payable)` function lets users withdraw their balance
-  function withdraw(address payable user) external exceededDeadline thresholdNotReached notCompleted {
+  function withdraw(address payable user) external exceededDeadline thresholdNotReached  {
       require(balances[user] != 0, "User's balance is 0, can't withdraw.");
       uint256 withdrawAmount = balances[user];
       balances[user] = 0;
