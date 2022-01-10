@@ -66,12 +66,6 @@ contract Staker {
       user.transfer(withdrawAmount);
   }
 
-
-
-  
-
-
-
   // Add a `timeLeft()` view function that returns the time left before the deadline for the frontend
   function timeLeft() public view returns (uint256) {
     return block.timestamp >= deadline ? 0 : (deadline - block.timestamp);
