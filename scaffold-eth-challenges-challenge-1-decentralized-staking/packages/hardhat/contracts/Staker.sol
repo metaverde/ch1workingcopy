@@ -22,6 +22,12 @@ contract Staker {
     _;
   }
 
+  modifier preDeadline() {
+    require(block.timestamp < deadline, "DeadLine passed, can't execute stake or withdraw!");
+    _;
+  }
+
+
   modifier thresholdReached() {
     require(address(this).balance >= threshold, "Takes money to make money!");
     _;
@@ -41,7 +47,7 @@ contract Staker {
 
   // Collect fund in a payable `stake()` function and track individual `balances` with a mapping:
   //  ( make sure to add a `Stake(address,uint256)` event and emit it for the frontend <List/> display )
-  function stake() public payable notCompleted {
+  function stake() public payable preDeadline {
       balances[msg.sender] += msg.value;
       emit Stake(msg.sender, msg.value);
 
