@@ -47,6 +47,8 @@ contract Staker {
 
   // Collect fund in a payable `stake()` function and track individual `balances` with a mapping:
   //  ( make sure to add a `Stake(address,uint256)` event and emit it for the frontend <List/> display )
+  /*I don't understand why the `notCompleted` modifier doesn't prevent post ... oh now I think I do... 
+  if there wasn't enough staked the contract isn't completed. */
   function stake() public payable preDeadline {
       balances[msg.sender] += msg.value;
       emit Stake(msg.sender, msg.value);
