@@ -12,8 +12,8 @@ contract Staker {
   }
 
   mapping ( address => uint256 ) public balances;
-  uint256 public constant threshold = .001 ether;
-  uint256 public deadline = block.timestamp + 240 seconds;
+  uint256 public constant threshold = .5 ether;
+  uint256 public deadline = block.timestamp + 72 hours;
   event Stake(address, uint256);
 
 
@@ -60,7 +60,8 @@ contract Staker {
   you will want to call: exampleExternalContract.complete{value: address(this).balance}()
   Also, Solidity is magic, as is all programming.*/
   //  It should either call `exampleExternalContract.complete{value: address(this).balance}()` to send all the value
-  //Moved `notCompleted` modifier to the first so that the proper error message shows when attempting to re-execute.
+  /*Moved `notCompleted` modifier to the first so that the proper error message shows when attempting to re-execute.
+  Once executed the amount in the contract resets to 0 so it was showing "Threshold not reached" instead of "Staking completed".*/
 
   function execute() public notCompleted exceededDeadline thresholdReached  {
       exampleExternalContract.complete{value: address(this).balance}();
