@@ -60,8 +60,9 @@ contract Staker {
   you will want to call: exampleExternalContract.complete{value: address(this).balance}()
   Also, Solidity is magic, as is all programming.*/
   //  It should either call `exampleExternalContract.complete{value: address(this).balance}()` to send all the value
+  //Moved `notCompleted` modifier to the first so that the proper error message shows when attempting to re-execute.
 
-  function execute() public exceededDeadline thresholdReached notCompleted {
+  function execute() public notCompleted exceededDeadline thresholdReached  {
       exampleExternalContract.complete{value: address(this).balance}();
   }
 
